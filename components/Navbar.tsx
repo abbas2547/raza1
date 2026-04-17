@@ -47,30 +47,36 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, [isHomePage]);
 
+  const navPillClass =
+    "rounded-full border px-3 py-1.5 text-sm transition whitespace-nowrap lg:px-4 lg:py-2";
+
   return (
     <header className="fixed top-0 left-0 z-50 w-full border-b border-slate-200/40 bg-transparent shadow-none backdrop-blur-md">
-      <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#" className="flex items-center gap-3">
+      <nav className="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-x-4 gap-y-3 px-4 py-4 sm:px-6">
+        <Link
+          href="/"
+          className="relative z-20 flex min-w-0 shrink-0 items-center gap-2 sm:gap-3"
+        >
           <Image
             src="/eluue-logo.jpeg"
             alt="Eluue WebServices logo"
-            width={64}
-            height={64}
-            className="rounded-full border border-orange-200/70 object-cover shadow-[0_0_22px_rgba(255,122,24,0.25)]"
+            width={56}
+            height={56}
+            className="h-11 w-11 shrink-0 rounded-full border border-orange-200/70 object-cover shadow-[0_0_22px_rgba(255,122,24,0.25)] sm:h-14 sm:w-14 md:h-16 md:w-16"
             priority
           />
-          <span className="text-lg font-semibold tracking-[0.06em] text-slate-900 md:text-xl">
+          <span className="max-w-[10rem] truncate text-base font-semibold tracking-[0.06em] text-slate-900 sm:max-w-none sm:text-lg md:text-xl">
             Eluue WebServices
           </span>
-        </a>
+        </Link>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden min-w-0 flex-1 basis-0 flex-wrap items-center justify-end gap-2 md:flex lg:gap-3">
           {isHomePage &&
             navItems.map((item) => (
               <a
                 key={item.id}
                 href={`#${item.id}`}
-                className={`rounded-full border px-4 py-2 text-sm transition ${
+                className={`${navPillClass} ${
                   activeSection === item.id
                     ? "border-orange-200 bg-orange-50 text-orange-700"
                     : "border-slate-200 text-slate-700 hover:bg-slate-100"
@@ -83,30 +89,30 @@ export default function Navbar() {
             <>
               <Link
                 href="/dashboard"
-                className="rounded-full border border-orange-200 bg-orange-50 px-5 py-2 text-sm font-medium text-orange-700 transition hover:bg-orange-100"
+                className={`${navPillClass} border-orange-200 bg-orange-50 font-medium text-orange-700 hover:bg-orange-100`}
               >
                 Dashboard
               </Link>
               <button
                 type="button"
                 onClick={() => signOut({ callbackUrl: "/" })}
-                className="rounded-full border border-slate-200 bg-white px-5 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                className={`${navPillClass} border-slate-200 bg-white font-medium text-slate-700 hover:bg-slate-100`}
               >
                 Logout
               </button>
-              <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5">
+              <div className="flex max-w-[min(100%,12rem)] items-center gap-2 rounded-full border border-slate-200 bg-white px-2 py-1 sm:px-3 sm:py-1.5 lg:max-w-[14rem]">
                 {session.user.image ? (
                   <Image
                     src={session.user.image}
                     alt={session.user.name ?? "User avatar"}
                     width={28}
                     height={28}
-                    className="rounded-full"
+                    className="shrink-0 rounded-full"
                   />
                 ) : (
-                  <div className="h-7 w-7 rounded-full bg-orange-100" />
+                  <div className="h-7 w-7 shrink-0 rounded-full bg-orange-100" />
                 )}
-                <span className="max-w-32 truncate text-sm text-slate-700">
+                <span className="min-w-0 flex-1 truncate text-sm text-slate-700">
                   {session.user.name ?? "Signed in"}
                 </span>
               </div>
@@ -114,14 +120,14 @@ export default function Navbar() {
           ) : (
             <Link
               href="/login"
-              className="rounded-full border border-orange-200 bg-orange-50 px-5 py-2 text-sm font-medium text-orange-700 transition hover:bg-orange-100"
+              className={`${navPillClass} border-orange-200 bg-orange-50 font-medium text-orange-700 hover:bg-orange-100`}
             >
               Login
             </Link>
           )}
           <a
             href="mailto:eluue2547@gmail.com"
-            className="rounded-full bg-orange-500 px-5 py-2 text-sm font-medium text-white transition hover:bg-orange-600"
+            className="rounded-full bg-orange-500 px-4 py-1.5 text-sm font-medium whitespace-nowrap text-white transition hover:bg-orange-600 lg:px-5 lg:py-2"
           >
             Contact Us
           </a>
