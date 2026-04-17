@@ -40,19 +40,19 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-black/35 backdrop-blur-md">
+    <header className="fixed top-0 left-0 z-50 w-full border-b border-slate-200/40 bg-transparent shadow-none backdrop-blur-md">
       <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
         <a href="#" className="flex items-center gap-3">
           <Image
-            src="/zyrox-logo.png"
-            alt="Zyrox Webservices logo"
+            src="/eluue-logo.jpeg"
+            alt="Eluue WebServices logo"
             width={64}
             height={64}
-            className="rounded-full border border-cyan-300/40 object-cover shadow-[0_0_22px_rgba(34,211,238,0.35)]"
+            className="rounded-full border border-orange-200/70 object-cover shadow-[0_0_22px_rgba(255,122,24,0.25)]"
             priority
           />
-          <span className="text-lg font-semibold tracking-[0.06em] text-white md:text-xl">
-            Zyrox WebServices
+          <span className="text-lg font-semibold tracking-[0.06em] text-slate-900 md:text-xl">
+            Eluue WebServices
           </span>
         </a>
 
@@ -63,27 +63,25 @@ export default function Navbar() {
               href={`#${item.id}`}
               className={`rounded-full border px-4 py-2 text-sm transition ${
                 activeSection === item.id
-                  ? "border-white/45 bg-white/20 text-white"
-                  : "border-white/20 text-white/90 hover:bg-white/10"
+                  ? "border-orange-200 bg-orange-50 text-orange-700"
+                  : "border-slate-200 text-slate-700 hover:bg-slate-100"
               }`}
             >
               {item.label}
             </a>
           ))}
           <a
-            href="https://t.me/abbaszaidi10?text=Hi%20I%20am%20interested%20in%20your%20service"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full bg-white px-5 py-2 text-sm font-medium text-black transition hover:bg-white/90"
+            href="mailto:eluue2547@gmail.com"
+            className="rounded-full bg-orange-500 px-5 py-2 text-sm font-medium text-white transition hover:bg-orange-600"
           >
-            Hire Abbas
+            Contact Us
           </a>
         </div>
 
         <button
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
-          className="rounded-full border border-white/20 px-4 py-2 text-sm text-white md:hidden"
+          className="rounded-full border border-slate-200 px-4 py-2 text-sm text-slate-700 md:hidden"
           aria-expanded={isOpen}
           aria-label="Toggle navigation menu"
         >
@@ -93,7 +91,7 @@ export default function Navbar() {
 
       {isOpen && (
         <div className="mx-auto w-full max-w-6xl px-6 pb-4 md:hidden">
-          <div className="space-y-2 rounded-2xl border border-white/10 bg-black/50 p-3">
+          <div className="space-y-2 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
             {navItems.map((item) => (
               <a
                 key={item.id}
@@ -101,21 +99,19 @@ export default function Navbar() {
                 onClick={() => setIsOpen(false)}
                 className={`block rounded-xl px-4 py-2 text-sm transition ${
                   activeSection === item.id
-                    ? "bg-white/20 text-white"
-                    : "text-white/85 hover:bg-white/10"
+                    ? "bg-orange-50 text-orange-700"
+                    : "text-slate-700 hover:bg-slate-100"
                 }`}
               >
                 {item.label}
               </a>
             ))}
             <a
-              href="https://t.me/abbaszaidi10"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="mailto:eluue2547@gmail.com"
               onClick={() => setIsOpen(false)}
-              className="mt-2 block rounded-xl bg-white px-4 py-2 text-center text-sm font-medium text-black"
+              className="mt-2 block rounded-xl bg-orange-500 px-4 py-2 text-center text-sm font-medium text-white"
             >
-              Hire Abbas
+              Contact Us
             </a>
           </div>
         </div>

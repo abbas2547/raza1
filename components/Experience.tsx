@@ -1,10 +1,10 @@
 export default function Experience() {
   return (
-    <section className="mx-auto max-w-4xl rounded-3xl border border-white/15 bg-black/40 px-6 py-32 shadow-[0_10px_35px_rgba(0,0,0,0.35)] backdrop-blur-sm">
-      <h2 className="mb-6 text-4xl font-semibold">
+    <section className="mx-auto max-w-4xl rounded-3xl border border-slate-200 bg-white/95 px-6 py-32 shadow-sm">
+      <h2 className="mb-6 text-4xl font-semibold text-slate-900">
         My Professional Experience as a Web Designer &amp; Developer
       </h2>
-      <p className="leading-relaxed text-gray-200">
+      <p className="leading-relaxed text-slate-600">
         My name is Abbas, and I am currently pursuing my BCA (1st year).
         Alongside my academic journey, I have built a strong professional
         foundation in web design and development with over two years of

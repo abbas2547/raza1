@@ -3,12 +3,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        bg: "#0a0a0a",
-        card: "#111111",
-        border: "#1f1f1f",
+        bg: "#fef7ee",
+        card: "#ffffff",
+        border: "#e5e7eb",
+        accent: {
+          DEFAULT: "#ff7a18",
+          soft: "#ffb470",
+        },
       },
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
+        sans: ["var(--font-cosmic)", "sans-serif"],
       },
     },
   },
