@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Orbitron } from "next/font/google";
 import "./globals.css";
+import Providers from "./providers";
 
 const orbitron = Orbitron({
   variable: "--font-cosmic",
@@ -21,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${orbitron.variable} h-full antialiased`}>
       <body className="min-h-full bg-bg font-sans text-slate-900 antialiased">
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

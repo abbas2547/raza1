@@ -1,6 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 const navItems = [
@@ -13,8 +16,13 @@ const navItems = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("features");
+  const { data: session } = useSession();
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
 
   useEffect(() => {
+    if (!isHomePage) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
@@ -37,7 +45,7 @@ export default function Navbar() {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [isHomePage]);
 
   return (
     <header className="fixed top-0 left-0 z-50 w-full border-b border-slate-200/40 bg-transparent shadow-none backdrop-blur-md">
@@ -57,19 +65,60 @@ export default function Navbar() {
         </a>
 
         <div className="hidden items-center gap-3 md:flex">
-          {navItems.map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              className={`rounded-full border px-4 py-2 text-sm transition ${
-                activeSection === item.id
-                  ? "border-orange-200 bg-orange-50 text-orange-700"
-                  : "border-slate-200 text-slate-700 hover:bg-slate-100"
-              }`}
+          {isHomePage &&
+            navItems.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className={`rounded-full border px-4 py-2 text-sm transition ${
+                  activeSection === item.id
+                    ? "border-orange-200 bg-orange-50 text-orange-700"
+                    : "border-slate-200 text-slate-700 hover:bg-slate-100"
+                }`}
+              >
+                {item.label}
+              </a>
+            ))}
+          {session?.user ? (
+            <>
+              <Link
+                href="/dashboard"
+                className="rounded-full border border-orange-200 bg-orange-50 px-5 py-2 text-sm font-medium text-orange-700 transition hover:bg-orange-100"
+              >
+                Dashboard
+              </Link>
+              <button
+                type="button"
+                onClick={() => signOut({ callbackUrl: "/" })}
+                className="rounded-full border border-slate-200 bg-white px-5 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+              >
+                Logout
+              </button>
+              <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5">
+                {session.user.image ? (
+                  <Image
+                    src={session.user.image}
+                    alt={session.user.name ?? "User avatar"}
+                    width={28}
+                    height={28}
+                    className="rounded-full"
+                  />
+                ) : (
+                  <div className="h-7 w-7 rounded-full bg-orange-100" />
+                )}
+                <span className="max-w-32 truncate text-sm text-slate-700">
+                  {session.user.name ?? "Signed in"}
+                </span>
+              </div>
+            </>
+          ) : (
+            <Link
+              href="/login"
+              className="rounded-full border border-orange-200 bg-orange-50 px-5 py-2 text-sm font-medium text-orange-700 transition hover:bg-orange-100"
             >
-              {item.label}
-            </a>
-          ))}
+              Login
+            </Link>
+          )}
           <a
             href="mailto:eluue2547@gmail.com"
             className="rounded-full bg-orange-500 px-5 py-2 text-sm font-medium text-white transition hover:bg-orange-600"
@@ -92,20 +141,21 @@ export default function Navbar() {
       {isOpen && (
         <div className="mx-auto w-full max-w-6xl px-6 pb-4 md:hidden">
           <div className="space-y-2 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
-            {navItems.map((item) => (
-              <a
-                key={item.id}
-                href={`#${item.id}`}
-                onClick={() => setIsOpen(false)}
-                className={`block rounded-xl px-4 py-2 text-sm transition ${
-                  activeSection === item.id
-                    ? "bg-orange-50 text-orange-700"
-                    : "text-slate-700 hover:bg-slate-100"
-                }`}
-              >
-                {item.label}
-              </a>
-            ))}
+            {isHomePage &&
+              navItems.map((item) => (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  onClick={() => setIsOpen(false)}
+                  className={`block rounded-xl px-4 py-2 text-sm transition ${
+                    activeSection === item.id
+                      ? "bg-orange-50 text-orange-700"
+                      : "text-slate-700 hover:bg-slate-100"
+                  }`}
+                >
+                  {item.label}
+                </a>
+              ))}
             <a
               href="mailto:eluue2547@gmail.com"
               onClick={() => setIsOpen(false)}
@@ -113,6 +163,51 @@ export default function Navbar() {
             >
               Contact Us
             </a>
+            {session?.user ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  onClick={() => setIsOpen(false)}
+                  className="block rounded-xl border border-orange-200 bg-orange-50 px-4 py-2 text-center text-sm font-medium text-orange-700"
+                >
+                  Dashboard
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsOpen(false);
+                    signOut({ callbackUrl: "/" });
+                  }}
+                  className="block w-full rounded-xl border border-slate-200 bg-white px-4 py-2 text-center text-sm font-medium text-slate-700"
+                >
+                  Logout
+                </button>
+                <div className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-3 py-2">
+                  {session.user.image ? (
+                    <Image
+                      src={session.user.image}
+                      alt={session.user.name ?? "User avatar"}
+                      width={24}
+                      height={24}
+                      className="rounded-full"
+                    />
+                  ) : (
+                    <div className="h-6 w-6 rounded-full bg-orange-100" />
+                  )}
+                  <span className="max-w-40 truncate text-sm text-slate-700">
+                    {session.user.name ?? "Signed in"}
+                  </span>
+                </div>
+              </>
+            ) : (
+              <Link
+                href="/login"
+                onClick={() => setIsOpen(false)}
+                className="block rounded-xl border border-orange-200 bg-orange-50 px-4 py-2 text-center text-sm font-medium text-orange-700"
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
       )}
