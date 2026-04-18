@@ -1,5 +1,8 @@
 import Link from "next/link";
 
+const telegramHref =
+  "https://t.me/abbaszaidi10?text=Hi%20i%20am%20interested%20in%20your%20service";
+
 const footerSections = [
   {
     title: "Services",
@@ -52,19 +55,18 @@ const footerSections = [
       { label: "Portfolio", href: "#experience" },
       { label: "Resume / CV", href: "#contact" },
       { label: "Work Process", href: "#experience" },
-      { label: "Client Success Stories", href: "#experience" },
-      { label: "Contact Me", href: "#contact" },
+      { label: "Contact Me", href: telegramHref, external: true },
     ],
   },
   {
     title: "Support",
     items: [
-      { label: "Help Center", href: "#contact" },
+      { label: "Help Center", href: telegramHref, external: true },
       { label: "Documentation", href: "#contact" },
-      { label: "Contact Support", href: "#contact" },
+      { label: "Contact Support", href: telegramHref, external: true },
       { label: "Report an Issue", href: "#contact" },
-      { label: "Live Chat", href: "#contact" },
-      { label: "Project Inquiry Form", href: "#contact" },
+      { label: "Live Chat", href: telegramHref, external: true },
+      { label: "Project Inquiry Form", href: telegramHref, external: true },
     ],
   },
 ];
@@ -82,12 +84,23 @@ export default function Footer() {
               <ul className="space-y-3 text-sm text-slate-600">
                 {section.items.map((item) => (
                   <li key={item.label}>
-                    <Link
-                      href={item.href}
-                      className="transition-colors hover:text-slate-900"
-                    >
-                      {item.label}
-                    </Link>
+                    {item.external ? (
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="transition-colors hover:text-slate-900"
+                      >
+                        {item.label}
+                      </a>
+                    ) : (
+                      <Link
+                        href={item.href}
+                        className="transition-colors hover:text-slate-900"
+                      >
+                        {item.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

@@ -126,7 +126,9 @@ export default function Navbar() {
             </Link>
           )}
           <a
-            href="mailto:eluue2547@gmail.com"
+            href="https://t.me/abbaszaidi10?text=Hi%20i%20am%20interested%20in%20your%20service"
+            target="_blank"
+            rel="noopener noreferrer"
             className="rounded-full bg-orange-500 px-4 py-1.5 text-sm font-medium whitespace-nowrap text-white transition hover:bg-orange-600 lg:px-5 lg:py-2"
           >
             Contact Us
@@ -163,7 +165,9 @@ export default function Navbar() {
                 </a>
               ))}
             <a
-              href="mailto:eluue2547@gmail.com"
+              href="https://t.me/eluue2547?text=Hi%20i%20am%20interested%20in%20your%20service"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setIsOpen(false)}
               className="mt-2 block rounded-xl bg-orange-500 px-4 py-2 text-center text-sm font-medium text-white"
             >
